@@ -9,6 +9,7 @@ export interface ProductInterface {
   getId(): string;
   getName(): string;
   getPrice(): number;
+  setPrice(price: number): void;
   getStatus(): string;
 }
 
@@ -20,4 +21,6 @@ export interface ProductWriter {
   save(product: ProductInterface): ProductInterface;
 }
 
-export interface ProductPersistenceInterface {}
+export interface ProductPersistenceInterface
+  extends ProductReader,
+    ProductWriter {}

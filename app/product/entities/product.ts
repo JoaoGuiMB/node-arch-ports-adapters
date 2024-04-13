@@ -43,6 +43,10 @@ export default class Product implements ProductInterface {
     return this.price;
   }
 
+  setPrice(price: number): void {
+    this.price = price;
+  }
+
   getStatus(): ProductStatus {
     return this.status;
   }
