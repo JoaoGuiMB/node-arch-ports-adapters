@@ -11,3 +11,13 @@ export interface ProductInterface {
   getPrice(): number;
   getStatus(): string;
 }
+
+export interface ProductReader {
+  get(id: string): ProductInterface;
+}
+
+export interface ProductWriter {
+  save(product: ProductInterface): ProductInterface;
+}
+
+export interface ProductPersistenceInterface {}
