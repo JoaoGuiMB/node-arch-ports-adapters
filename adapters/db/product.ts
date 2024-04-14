@@ -5,6 +5,7 @@ import Product from "../../app/product/entities/product";
 interface ProductDb {
   db: Database;
   get: (id: string) => Promise<ProductInterface | undefined>;
+  save: (product: Product) => Promise<ProductInterface | undefined>;
 }
 
 export default class ProductAdapter implements ProductDb {
@@ -27,5 +28,27 @@ export default class ProductAdapter implements ProductDb {
         resolve(row);
       });
     });
+  }
+
+  async save(product: Product) {
+    const row = await this.get(product.getId());
+    if (row) {
+      const sql = `UPDATE products SET name = ?, price = ?, status = ? WHERE id = ?`;
+      this.db.run(sql, [
+        product.getName(),
+        product.getPrice(),
+        product.getStatus(),
+        product.getId(),
+      ]);
+    } else {
+      const sql = `INSERT INTO products (id, name, price, status) VALUES (?, ?, ?, ?)`;
+      this.db.run(sql, [
+        product.getId(),
+        product.getName(),
+        product.getPrice(),
+        product.getStatus(),
+      ]);
+    }
+    return product;
   }
 }
