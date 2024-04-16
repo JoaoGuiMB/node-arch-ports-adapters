@@ -1,14 +1,18 @@
 import { Database } from "sqlite3";
-import { ProductInterface } from "../../app/product/entities/types/product";
+import {
+  ProductInterface,
+  ProductPersistenceInterface,
+} from "../../app/product/entities/types/product";
 import Product from "../../app/product/entities/product";
+import { ProductDto, bindProductDto } from "./product.dto";
 
 interface ProductDb {
   db: Database;
-  get: (id: string) => Promise<ProductInterface | undefined>;
-  save: (product: Product) => Promise<ProductInterface | undefined>;
 }
 
-export default class ProductAdapter implements ProductDb {
+export default class ProductAdapter
+  implements ProductDb, ProductPersistenceInterface
+{
   db: Database;
 
   constructor(db: Database) {
@@ -18,14 +22,18 @@ export default class ProductAdapter implements ProductDb {
   async get(id: string) {
     const sql = `SELECT * FROM products WHERE id = ?`;
 
-    return new Promise<ProductInterface | undefined>((resolve, reject) => {
-      this.db.get(sql, [id], (err, row: ProductInterface | undefined) => {
+    return new Promise<Product | undefined>((resolve, reject) => {
+      this.db.get(sql, [id], (err, row: ProductDto | undefined) => {
         if (err) {
           reject(err);
           return undefined;
         }
-
-        resolve(row);
+        if (!row) {
+          resolve(undefined);
+          return undefined;
+        }
+        const product = bindProductDto(row);
+        resolve(product);
       });
     });
   }

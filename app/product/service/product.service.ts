@@ -12,36 +12,40 @@ export default class ProductService implements ProductServiceInterface {
     this.persistance = persistence;
   }
 
-  get(id: string): ProductInterface {
+  async get(id: string): Promise<Product | null> {
     try {
-      return this.persistance.get(id);
+      const foundProduct = await this.persistance.get(id);
+      if (!foundProduct) {
+        return null;
+      }
+      return foundProduct;
     } catch (error) {
       throw error;
     }
   }
 
-  create(name: string, price: number): ProductInterface {
+  async create(name: string, price: number): Promise<Product> {
     try {
       const product = new Product(name, price);
-      return this.persistance.save(product);
+      return await this.persistance.save(product);
     } catch (error) {
       throw error;
     }
   }
 
-  enable(product: ProductInterface): ProductInterface {
+  async enable(product: Product): Promise<Product> {
     try {
       product.enable();
-      return this.persistance.save(product);
+      return await this.persistance.save(product);
     } catch (error) {
       throw error;
     }
   }
 
-  disable(product: ProductInterface): ProductInterface {
+  async disable(product: Product): Promise<Product> {
     try {
       product.disable();
-      return this.persistance.save(product);
+      return await this.persistance.save(product);
     } catch (error) {
       throw error;
     }

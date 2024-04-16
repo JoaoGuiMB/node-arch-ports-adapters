@@ -6,8 +6,8 @@ import {
 
 export interface ProductServiceInterface {
   readonly persistance: ProductPersistenceInterface;
-  get(id: string): ProductInterface;
-  create(name: string, price: number): void;
-  enable(product: ProductInterface): ProductInterface;
-  disable(product: ProductInterface): ProductInterface;
+  get(id: string): Promise<Product | null>;
+  create(name: string, price: number): Promise<Product>;
+  enable(product: Product): Promise<Product>;
+  disable(product: Product): Promise<Product>;
 }

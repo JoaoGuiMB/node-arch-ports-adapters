@@ -10,10 +10,10 @@ vi.mock("../entities/product", async (importOriginal) => {
 });
 
 const persistence: ProductPersistenceInterface = {
-  get: () => {
+  get: async () => {
     return createdProduct;
   },
-  save: (product: Product) => {
+  save: async (product: Product) => {
     return product;
   },
 };
@@ -23,33 +23,33 @@ describe("ProductService unit tests", () => {
     vi.resetAllMocks();
   });
 
-  it("should get a product", () => {
+  it("should get a product", async () => {
     const mockedPersistence = vi.mocked(persistence.get);
     const productService = new ProductService(persistence);
-    const result = productService.get("1");
+    const result = await productService.get("1");
     expect(result).toBe(createdProduct);
   });
 
-  it("should create a product", () => {
+  it("should create a product", async () => {
     const mockedPersistence = vi.mocked(persistence.save);
     const productService = new ProductService(persistence);
-    const result = productService.create("product", 10);
+    const result = await productService.create("product", 10);
     expect(result.getName()).toBe(createdProduct.getName());
   });
 
-  it("should enable a product", () => {
+  it("should enable a product", async () => {
     const mockedPersistence = vi.mocked(persistence.save);
     const productService = new ProductService(persistence);
-    const result = productService.enable(createdProduct);
+    const result = await productService.enable(createdProduct);
     expect(result.getStatus()).toBe("ENABLE");
   });
 
-  it("should disable a product", () => {
+  it("should disable a product", async () => {
     const mockedPersistence = vi.mocked(persistence.save);
     const productService = new ProductService(persistence);
     productService.enable(createdProduct);
     createdProduct.setPrice(0);
-    const result = productService.disable(createdProduct);
+    const result = await productService.disable(createdProduct);
     expect(result.getStatus()).toBe("DISABLE");
   });
 });

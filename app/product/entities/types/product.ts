@@ -1,3 +1,5 @@
+import Product from "../product";
+
 export enum ProductStatus {
   ENABLE = "ENABLE",
   DISABLE = "DISABLE",
@@ -14,11 +16,11 @@ export interface ProductInterface {
 }
 
 export interface ProductReader {
-  get(id: string): ProductInterface;
+  get(id: string): Promise<Product | undefined>;
 }
 
 export interface ProductWriter {
-  save(product: ProductInterface): ProductInterface;
+  save(product: Product): Promise<Product>;
 }
 
 export interface ProductPersistenceInterface

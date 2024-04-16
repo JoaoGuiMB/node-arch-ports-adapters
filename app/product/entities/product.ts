@@ -50,4 +50,13 @@ export default class Product implements ProductInterface {
   getStatus(): ProductStatus {
     return this.status;
   }
+  setStatus(status: ProductStatus): void {
+    this.status = status;
+  }
+  setName(name: string): void {
+    this.name = name;
+  }
+  setId(id: string): void {
+    this.id = id;
+  }
 }
