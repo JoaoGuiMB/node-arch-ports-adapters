@@ -3,7 +3,7 @@ import { ProductStatus } from "../../../../app/product/entities/types/product";
 
 const ProductSchema = new Schema({
   id: {
-    type: Number,
+    type: String,
     unique: true,
     required: true,
   },

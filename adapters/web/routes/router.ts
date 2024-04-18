@@ -5,12 +5,13 @@ import ProductAdapter from "../../db/product";
 import sqlite3 from "sqlite3";
 import { ProductInterface } from "../../../app/product/entities/types/product";
 import Product from "../../../app/product/entities/product";
+import ProductMongoRepository from "../../db/mongo/productRepo";
 
 const productRouter = Router();
 const db = new sqlite3.Database("sqlite.db");
 
 const productController = new ProductControllerAdapter(
-  new ProductService(new ProductAdapter(db))
+  new ProductService(new ProductMongoRepository())
 );
 interface ProductJson {
   id: string;

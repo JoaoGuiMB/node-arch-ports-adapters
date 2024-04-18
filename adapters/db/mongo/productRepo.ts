@@ -6,7 +6,9 @@ import {
 import { bindProductDto } from "../product.dto";
 import ProductModel from "./models/productModel";
 
-export default class CourseRepository implements ProductPersistenceInterface {
+export default class ProductMongoRepository
+  implements ProductPersistenceInterface
+{
   async get(id: string): Promise<Product | undefined> {
     const product = await ProductModel.findOne({ id });
     if (!product) return undefined;
