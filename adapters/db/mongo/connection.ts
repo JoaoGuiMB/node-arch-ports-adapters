@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017";
+const MONGO_URI =
+  process.env.MONGO_URI ||
+  "mongodb://root:example@localhost:27017/root?authSource=admin";
 
 // try to add mongodb-memory-server here
 
