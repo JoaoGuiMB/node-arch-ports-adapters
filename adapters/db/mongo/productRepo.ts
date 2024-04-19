@@ -1,8 +1,5 @@
 import Product from "../../../app/product/entities/product";
-import {
-  ProductPersistenceInterface,
-  ProductStatus,
-} from "../../../app/product/entities/types/product";
+import { ProductPersistenceInterface } from "../../../app/product/entities/types/product";
 import { bindProductDto } from "../product.dto";
 import ProductModel from "./models/productModel";
 

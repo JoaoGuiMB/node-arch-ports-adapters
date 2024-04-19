@@ -1,8 +1,5 @@
 import { Database } from "sqlite3";
-import {
-  ProductInterface,
-  ProductPersistenceInterface,
-} from "../../app/product/entities/types/product";
+import { ProductPersistenceInterface } from "../../app/product/entities/types/product";
 import Product from "../../app/product/entities/product";
 import { ProductDto, bindProductDto } from "./product.dto";
 
